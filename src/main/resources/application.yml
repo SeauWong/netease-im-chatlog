@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: chat-log
+  data:
+    mongodb:
+      uri: mongodb://host:port/dbname
+
+server:
+  port: 7698
+  servlet:
+    context-path: /charlog
