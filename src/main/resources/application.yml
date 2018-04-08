@@ -3,9 +3,28 @@ spring:
     name: chat-log
   data:
     mongodb:
-      uri: mongodb://host:port/dbname
+      uri: mongodb://ip:port/dbname
+      repositories:
+        enabled: true
+  rabbitmq:
+    host: ip
+    port: 1000
+    userName: userName
+    password: password
+    virtual-host: virtual-host
+
 
 server:
   port: 7698
   servlet:
-    context-path: /charlog
+    context-path: /chatlog
+
+asl.investor.im:
+  appKey: appKey
+  appSecret: appSecret
+
+logging:
+  level:
+    org.springframework.web: debug
+    com.wongcu: debug
+  path: ./logs
