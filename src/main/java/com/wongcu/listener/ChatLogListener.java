@@ -19,9 +19,14 @@ public class ChatLogListener {
     @Autowired
     private ChatLogService chatLogService;
 
+    private static final String UNIQUE_KEY = "msgidClient";
+
     @RabbitListener(queues = {"chatLogQueue"})
     public void chatLogProcess(ChatLog chatLog){
         log.debug("收到消息:{}",chatLog);
+        if(chatLog.containsKey(UNIQUE_KEY)){
+            chatLog.put("_id",chatLog.get(UNIQUE_KEY));
+        }
         chatLogService.insert(chatLog);
     }
 }

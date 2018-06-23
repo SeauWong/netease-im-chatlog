@@ -1,4 +1,4 @@
-application-ori.yml
+*.yml
 target/
 !.mvn/wrapper/maven-wrapper.jar
 .mvn

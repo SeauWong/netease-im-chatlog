@@ -4,8 +4,9 @@ import com.wongcu.model.ChatLog;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 /**
+ *
  * @author WongCU
- * @date 2018/4/2
+ * @date 2018/6/23
  */
-public interface ChatLogRepository extends MongoRepository<ChatLog, String> {
+public interface CustomMongoRepository extends MongoRepository<ChatLog, String> {
 }
