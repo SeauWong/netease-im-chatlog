@@ -4,6 +4,7 @@ import com.wongcu.model.ChatLog;
 import com.wongcu.model.param.ChatLogQueryParam;
 import com.wongcu.service.ChatLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -27,7 +28,7 @@ public class TestControler {
     }
 
     @PostMapping("/query_by_param")
-    public void queryByParam(@RequestBody ChatLogQueryParam queryParam){
-        chatLogService.queryByParam(queryParam,1,20);
+    public Page<ChatLog> queryByParam(@RequestBody ChatLogQueryParam queryParam){
+        return chatLogService.queryByParam(queryParam);
     }
 }

@@ -1,5 +1,5 @@
 package com.wongcu.model.param;
-
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
@@ -19,4 +19,20 @@ public class ChatLogQueryParam implements Serializable{
 
     @NotNull
     private String to;
+
+    @NotNull
+    private String msgTimestampStart;
+
+    @NotNull
+    private String msgTimestampEnd;
+
+    @NotNull
+    private Integer pageNo = 0;
+
+    @NotNull
+    private Integer pageSize = 20;
+
+    @NotNull
+    @ApiModelProperty(value = "传 asc 或 desc")
+    private String orderByMsgTimestamp = "asc";
 }

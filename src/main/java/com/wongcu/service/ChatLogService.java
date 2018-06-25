@@ -1,22 +1,15 @@
 package com.wongcu.service;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import com.wongcu.model.ChatLog;
 import com.wongcu.model.param.ChatLogQueryParam;
 import com.wongcu.repository.CustomMongoRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-
-import java.util.*;
 
 /**
  * @author WongCU
@@ -38,24 +31,10 @@ public class ChatLogService {
         }
     }
 
-    public void queryByParam(ChatLogQueryParam queryParam, int page, int size){
-        PageRequest pageRequest = PageRequest.of(page, size);
-//        Criteria criteria = Criteria
-//                .where("msgTimestamp").gte(queryParam.getMsgTimestampStart()).lt(queryParam.getMsgTimestampEnd())
-//                .and("fromAccount").is(queryParam.getFromAccount())
-//                .and("to").is(queryParam.getTo());
-//        Query query = new Query().
-//                with(pageRequest)
-//                .addCriteria(criteria);
-        ChatLog chatLog = new ChatLog();
-        chatLog.put("fromAccount",queryParam.getFromAccount());
-        chatLog.put("to",queryParam.getTo());
-        Example<ChatLog> example = Example.of(chatLog);
-        List<ChatLog> all = mongoRepository.findAll(example);
-        all.stream().forEach(n-> System.out.println(n));
-//        List<ChatLog> content = chatLogs.getContent();
-//        chatLogs.stream().forEach(n->{
-//            System.out.println(n);
-//        });
+    public Page<ChatLog> queryByParam(ChatLogQueryParam queryParam){
+        Sort.Order order = "asc".equals(queryParam.getOrderByMsgTimestamp()) ? Sort.Order.asc("msgTimestamp") : Sort.Order.desc("msgTimestamp");
+        Page<ChatLog> pages = mongoRepository.findAndPages(queryParam.getFromAccount(),queryParam.getTo(),
+                queryParam.getMsgTimestampStart(),queryParam.getMsgTimestampEnd(), PageRequest.of(queryParam.getPageNo(),queryParam.getPageSize(),Sort.by(order)));
+        return pages;
     }
 }
