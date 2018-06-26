@@ -1,0 +1,31 @@
+package com.wongcu.model.param;
+
+import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
+
+/**
+ *
+ * @author WongCU
+ * @date 2018/6/26
+ */
+@Data
+public class SysNoticeQueryParam implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    @NotNull
+    private String to;
+
+    @NotNull
+    private Integer pageNo = 0;
+
+    @NotNull
+    private Integer pageSize = 20;
+
+    @NotNull
+    @ApiModelProperty(value = "传 asc 或 desc，默认按时间倒序")
+    private String orderByMsgTimestamp = "desc";
+}

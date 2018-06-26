@@ -21,14 +21,14 @@ public class MqConfiguration {
     }
 
     @Bean
-    public Queue chatLogQueue() {
-        return new Queue("chatLogQueue", true);
+    public Queue imCcMessageQueue() {
+        return new Queue("imCcMessageQueue", true);
     }
 
     @Bean
     public Binding chatLogBinding() {
-        return BindingBuilder.bind(this.chatLogQueue())
+        return BindingBuilder.bind(this.imCcMessageQueue())
                 .to(this.directExchange())
-                .with("chatLog");
+                .with("imCcMessage");
     }
 }

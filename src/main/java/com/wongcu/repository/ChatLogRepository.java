@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.repository.Query;
  * @author WongCU
  * @date 2018/6/23
  */
-public interface CustomMongoRepository extends MongoRepository<ChatLog, String>{
+public interface ChatLogRepository extends MongoRepository<ChatLog, String>{
 
 
     @Query("{\"fromAccount\": ?0 , \"to\": ?1 , \"msgTimestamp\":{$gt : ?2 ,$lt: ?3}}")
